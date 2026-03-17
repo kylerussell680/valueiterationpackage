@@ -1,5 +1,7 @@
+from collections.abc import Callable
+from typing import Any
 
-def valueiteration(S, A, P, R, threshold, gamma, maxiters=100):
+def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:float, gamma:float, maxiters:int=100) -> tuple[dict[Any, Any], dict[Any, float], int, list[dict[Any, float]]]:
     '''
     Value iteration algorithm (synchronous) for Markov Decision Processes
 
@@ -33,12 +35,14 @@ def valueiteration(S, A, P, R, threshold, gamma, maxiters=100):
     '''
     
     # Add assurances to that the function doesnt break
-    assert 0 < gamma < 1, "gamma must be between 0.0 and 1.0"
-    assert threshold > 0, "threshold must be positive"
-    assert len(S) > 0, "S must have some states"
-    assert len(A) > 0, "A must have some actions"
-    assert callable(P), "P must be a function"
-    assert callable(R), "R must be a function"
+    if not (0 < gamma < 1):
+        raise ValueError("gamma must be between 0.0 and 1.0")
+    if not (threshold > 0):
+        raise ValueError("threshold must be positive")
+    if not (len(S) > 0):
+        raise ValueError("S must have some states")
+    if not (len(A) > 0):
+        raise ValueError("A must have some actions")
 
     # Intitialise two dictionaries for the current and last iteration's values
     V = {s: 0.0 for s in S}
@@ -66,6 +70,9 @@ def valueiteration(S, A, P, R, threshold, gamma, maxiters=100):
             
             # Iterate for each possible action
             for a in A:
+                # Account for terminal states, where probability is zero
+                if all(P(s_next, s, a) == 0.0 for s_next in S):
+                    continue
                 exp_v = 0.0
 
                 # Calculate expected value from future states
@@ -80,18 +87,23 @@ def valueiteration(S, A, P, R, threshold, gamma, maxiters=100):
                     best_v = v
                     best_a = a
                     
-            # Store best value and action for that state
-            V_update[s] = best_v
+            # Store best value and action for that stat, accounting for terminal states
+            if best_a is None:
+                V_update[s] = V[s]
+            else:
+                V_update[s] = best_v
             pi[s] = best_a
             
             # Update delta with largest change between iterations
             delta = max(delta, abs(V_update[s] - V[s]))
         
+        
         # Update value with the new iteration's value
         V = V_update.copy()
         # Store value history
         V_hist.append(V.copy())
-        
+    
+    # Termination due to max number of iterations warning
     if delta > threshold:
         print("Maximum number of iterations reached")
 

@@ -43,8 +43,7 @@ print("V(BR)=", V["BR"])
 print("pi(TL)=", pi["TL"])
 print("pi(TR)=", pi["TR"])
 print("pi(BL)=", pi["BL"])
-# This will always take first action in the actions list
-print("pi(BR)=", pi["BR"], "but really terminal")
+print("pi(BR)=", pi["BR"])
 
 for s in S:
     plt.plot([V[s] for V in V_hist], label=s)
