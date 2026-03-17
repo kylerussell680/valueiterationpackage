@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+valueiteration/__init__.py
+valueiteration/valueiteration.py
+valueiteration.egg-info/PKG-INFO
+valueiteration.egg-info/SOURCES.txt
+valueiteration.egg-info/dependency_links.txt
+valueiteration.egg-info/top_level.txt

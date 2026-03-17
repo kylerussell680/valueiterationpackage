@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: valueiteration
+Version: 0.1.0
+Summary: Synchronous value iteration algorithm for Markov Decision Processes
+Author-email: Kyle Russell <russel28@lancaster.ac.uk>
+Maintainer-email: Kyle Russell <russel28@lancaster.ac.uk>
+Project-URL: homepage, https://github.com/kylerussell680/value_iteration
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
