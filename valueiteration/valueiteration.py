@@ -35,7 +35,7 @@ def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:f
     '''
     
     # Add assurances to that the function doesnt break
-    if not (0 < gamma < 1):
+    if not (0 < gamma < 1): 
         raise ValueError("gamma must be between 0.0 and 1.0")
     if not (threshold > 0):
         raise ValueError("threshold must be positive")
