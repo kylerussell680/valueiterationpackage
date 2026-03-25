@@ -82,11 +82,9 @@ def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:f
                 # Account for terminal states, where probability is zero
                 if all(P_cached(s_next, s, a) == 0.0 for s_next in S):
                     continue
-                exp_v = 0.0
 
-                # Calculate expected value from future states
-                for s_next in S:
-                    exp_v += P_cached(s_next, s, a) * V[s_next]
+                # Calculate expected value from future states, now using map function 
+                exp_v = sum(map(lambda s_next: P_cached(s_next, s, a) * V[s_next], S))
                 
                 # Update value
                 v = R_cached(s, a) + gamma * exp_v
