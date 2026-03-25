@@ -60,19 +60,7 @@ print("Value History:", V_hist)
 
 ## Overview
 
-This algorithm was develop from the start point of the [****](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.SS2.html) Figure 9.16 alghorithm with some significant changes to improve the performance, or to overcome the gaps in the pseudocode.
+This algorithm was develop from the start point of the [Figure 9.16](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.SS2.html) Figure 9.16 alghorithm with some significant changes to improve the performance, or to overcome the gaps in the pseudocode.
 
--Firstly, the pseudocode says to assign V0(s) arbitrarily, I choose zeros as its an easy startpoint and also should help to show the convergence nicely. 
-
--Next, the pseudocode stores the sequence of value fucntions in Line 11, I do this differently by using two dictionaries, V and V_update, as this is the synchronous version, I didnt want to update the value of the V in the loop as that would make it asynchronous, V holds the previous iterations value functions and V_update holds the new iterations value functions and then it is switched at the end of the iteration so that the values are stored for the next iteration. 
-
--Next is the termination, the pseudocode leaves this ambiguous to how to do this, but I believe the best way to do this is to use the max change between iterations and then once this falls below a threshold, termiate, so that the algorithm has sufficiently converged and further iterations provide negligible convergence, it was also important to me to make this adaptable and therefore this threshold can be altered as a parameter, as different setups may require far more or less convergence and hence differing levels of computational complexity. In addition, to avoid very long algorithms, there is also a termination if the number of iterations goes above a maxiters threshold, therefore stoppping the algorithm and returning the values at that iteration.
-
--Next, the pseudocode calculates the best policy in an entirely seperate loop, I thought that wasnt really necessary as the best action was already being calculated as part of the loop and to save some computational power. 
-
--Next, I used an additional check for the terminal states as I found it necessary to be able to detect them and output the correct response, as before they would just return the first state, therfore I added a check to see if the states have all zero transition probabilities and could then classify them as terminal states. 
-
--Moreover, the final major addition was the additional parameters and outputs, I have already mentioned threshold, however gamma is an important addition as to represent differing levels of long-run/short-run value, I also added k and V_hist as outputs to be able to help visualise and understand the convergence better, as to know how many iterations and how that tracks with the value function.
-
-When it comes to the representation of the inputs, In my code, the states and actions could be represented as either strings, tuples or integers with minor changes to the MDP formulation. In addition, delta is set to be arbitrarily large for the first iteration to ensure that at least two iteration occurs.
+See /examples for 3 more detailed examples with more advanced setups, including; the Grid World Problem, Example 1 is a madeup example with a slightly different formulation of problem and Example 2 highlights the package usage for exercise [9.27](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.html#Ch9.Thmciexamplered27).
 
