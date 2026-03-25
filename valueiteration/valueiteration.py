@@ -1,9 +1,10 @@
 from collections.abc import Callable
 from typing import Any
+from functools import lru_cache
 
 def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:float, gamma:float, maxiters:int=100) -> tuple[dict[Any, Any], dict[Any, float], int, list[dict[Any, float]]]:
     '''
-    Value iteration algorithm (synchronous) for Markov Decision Processes
+    Value iteration algorithm (synchronous) for Markov Decision Processes.
 
     Parameters
     ----------
@@ -44,6 +45,14 @@ def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:f
     if not (len(A) > 0):
         raise ValueError("A must have some actions")
 
+    @lru_cache(maxsize=None)
+    def P_cached(s_next, s, a):
+        return P(s_next, s, a)
+    
+    @lru_cache(maxsize=None)
+    def R_cached(s, a):
+        return R(s, a)
+
     # Intitialise two dictionaries for the current and last iteration's values
     V = {s: 0.0 for s in S}
     V_update = {s: 0.0 for s in S}
@@ -71,16 +80,16 @@ def valueiteration(S:list[Any], A:list[Any], P:Callable, R:Callable, threshold:f
             # Iterate for each possible action
             for a in A:
                 # Account for terminal states, where probability is zero
-                if all(P(s_next, s, a) == 0.0 for s_next in S):
+                if all(P_cached(s_next, s, a) == 0.0 for s_next in S):
                     continue
                 exp_v = 0.0
 
                 # Calculate expected value from future states
                 for s_next in S:
-                    exp_v += P(s_next, s, a) * V[s_next]
+                    exp_v += P_cached(s_next, s, a) * V[s_next]
                 
                 # Update value
-                v = R(s, a) + gamma * exp_v
+                v = R_cached(s, a) + gamma * exp_v
                 
                 # Update best value found from best action
                 if v > best_v:
