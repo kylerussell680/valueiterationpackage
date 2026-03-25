@@ -7,7 +7,7 @@ A Python package for implementing the synchronous value iteration algorithm for 
 Install from GitHub:
 
   ```bash
-  pip install git+https://github.com/kylerussell680/value_iteration.git
+  pip install git+https://github.com/kylerussell680/valueiterationpackage.git
   ```
   
 ## Tests
