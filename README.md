@@ -1,29 +1,38 @@
 # Value Iteration Algorithm for Markov Decision Processes
 
-A python package for implementing the synchronous value iteration algorithm for use with Markov decision processes.
+A Python package for implementing the synchronous value iteration algorithm for use with Markov decision processes.
 
 ## Installation
 
-Install from Github:
+Install from GitHub:
 
   ```bash
   pip install git+https://github.com/kylerussell680/value_iteration.git
   ```
+  
+## Tests
+
+To run the unit tests:
+
+  ```bash
+  python -m pytest
+  ```
+  
 ## Parameters
 
 S - list of possible states
 
 A - list of possible actions
 
-P - function outputting the probability of transition to s' from s because of a P(s',s,a)
+P - transition probability function
 
-R - function outputting the expected reward for taking action a in state s R(s,a)
+R - reward function
 
-threshold - convergence threshold, iterations stop when difference between subsequent iterations is less than this
+threshold - convergence threshold, iterations stop when difference between subsequent iterations falls below this
 
 gamma - discount factor between 0.0 and 1.0
 
-maxiters - maximum number of iterations before terminating algorithm.
+maxiters - maximum number of iterations before terminating the algorithm.
 
 ## Outputs
 
@@ -40,6 +49,7 @@ V_hist - history of value function over iterations
 Python >= 3.7
 
 ## Example Usage
+
 ```
 from valueiteration import valueiteration
 
@@ -60,7 +70,20 @@ print("Value History:", V_hist)
 
 ## Overview
 
-This algorithm was develop from the start point of the [Figure 9.16](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.SS2.html) Figure 9.16 alghorithm with some significant changes to improve the performance, or to overcome the gaps in the pseudocode.
+This algorithm was develop from the start point of the [Figure 9.16](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.SS2.html) alghorithm with some significant changes to improve the performance, or to overcome the gaps in the pseudocode.
 
 See /examples for 3 more detailed examples with more advanced setups, including; the Grid World Problem, Example 1 is a madeup example with a slightly different formulation of problem and Example 2 highlights the package usage for exercise [9.27](https://artint.info/2e/html2e/ArtInt2e.Ch9.S5.html#Ch9.Thmciexamplered27).
 
+
+## Repository
+
+Source files and examples for this package can be found in the GitHub repository:
+
+```
+https://github.com/kylerussell680/value_iteration
+```
+
+
+## References
+
+Poole, D.L. and Mackworth, A.K., 2010. Artificial Intelligence: foundations of computational agents. Cambridge University Press.
